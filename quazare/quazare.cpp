@@ -26,7 +26,7 @@ int main() {
 			cout << "3.поставить минимум(20);\n";
 			cout << "4.ввести свою ставку.\n";
 			cin >> doing;
-			while (doing > 4 || doing < 1) { cout << "можно ввести от 1 до 4!!\nдействие: "; cin >> doing; }
+			while (doing > 4 || doing < 1) { cout << "можно ввести от 1 до 4!!\n"; cin >> doing; }
 			if (doing == 1) { if (vse > 200) stavka = 200; else stavka = vse; }
 			else if (doing == 2) {
 				if (vse > 200) stavka = 100;
