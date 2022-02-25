@@ -1,16 +1,22 @@
 ﻿#include <iostream>
 #include <random>
 using namespace std;
-void vyvod(int a, double* dengi);
+void win(int a, double* dengi);
 void br();
 int main() {
+	//установка русского языка
 	setlocale(LC_ALL, "Russian");
-	int x;
+	//переменные
+	double stavka, vse, record;
+	int x, ans, doing, avtomat, resh;
 	do {
+		//стоковые значения для переменных
 		x = 0;
-		rand(); rand(); rand();
-		double stavka = 0, vse = 200, record = 0;
-		int ans, doing;
+		stavka = 0;
+		vse = 200;
+		record = 0;
+		//(недо)решение проблемы с рандомом
+		rand(); rand();
 		do {
 			//ставка
 			cout << "у вас всего денег: " << floor(vse) << endl;
@@ -34,38 +40,38 @@ int main() {
 					cin >> stavka;
 				}
 			}
+			//вычитание ставки из всех денег
 			vse -= stavka;
 			cout << endl << "ваши деньги: " << floor(vse) << endl;
 			br();
 			//случайное число из автомата
-			int avtomat;
 			avtomat = (rand() % 12) + 1;
 			cout << "автомат: " << avtomat << endl;
 			//решения
 			while (avtomat <= 20) {
 				//варианты ответа если больше автомат выдал больше 14
 				if (avtomat > 14) {
-					if (avtomat == 20) { cout << "ВЫ ПОБЕДИЛИ!\n"; vyvod(avtomat, &stavka); break; }
+					if (avtomat == 20) { cout << "ВЫ ПОБЕДИЛИ!\n"; win(avtomat, &stavka); break; }
 					cout << "введите 1, 2 или 3\n1: добавить 1-8;\n2: добавить 4-7;\n3: забрать.\n";
-					int resh;
 					cin >> resh;
 					while (resh > 3 || resh < 1) { cout << "введите 1, 2 или 3!!!\n"; cin >> resh; }
 					if (resh == 1) { avtomat = avtomat + ((rand() % 8) + 1); cout << "автомат: " << avtomat << endl; }
 					else if (resh == 2) { avtomat = avtomat + ((rand() & 3) + 4); cout << "автомат: " << avtomat << endl; }
-					else if (resh == 3) { vyvod(avtomat, &stavka); br(); break; }
+					else if (resh == 3) { win(avtomat, &stavka); br(); break; }
 				}
-				//варианты ответа если больше автомат выдал меньше 14
+				//варианты ответа если больше автомат выдал меньше или ровно 14
 				else {
 					cout << "введите 1 или 2\n1: добавить 1-8;\n2: добавить 4-7.\n";
-					int resh;
 					cin >> resh;
 					while (resh > 2 || resh < 1) { cout << "введите 1 или 2!!!\n"; cin >> resh; }
 					if (resh == 1) { avtomat = avtomat + ((rand() % 8) + 1); cout << "автомат: " << avtomat << endl; }
 					else if (resh == 2) { avtomat = avtomat + ((rand() & 3) + 4); cout << "автомат: " << avtomat << endl; }
 				}
 			}
-			if (avtomat > 20) { cout << "вы проиграли\n"; vyvod(avtomat, &stavka); br(); }
+			if (avtomat > 20) { cout << "вы проиграли\n"; win(avtomat, &stavka); br(); }
+			//возвращение денег обратно на счёт
 			vse += stavka;
+			//вывод выигрыша
 			cout << "ваш выигрыш: " << floor(stavka) << endl;
 			cout << "ваши деньги: " << floor(vse) << endl;
 			if (vse > record) {
@@ -73,6 +79,7 @@ int main() {
 				cout << "\nрекордное количество ваших денег: " << floor(record);
 			}
 			br();
+			//решение о продолжение игры
 			if (vse >= 20) {
 				cout << "продолжить?\n1.да\n2.нет\n";
 				cin >> ans;
@@ -84,6 +91,7 @@ int main() {
 				br();
 			}
 		} while (ans == 1);
+		//решение о начале игры заново
 		if (vse == 0) {
 			cout << "заново?\n1.да\n2.нет\n";
 			cin >> x;
@@ -93,7 +101,8 @@ int main() {
 	} while (x == 1);
 	return 0;
 }
-void vyvod(int a, double* dengi) {
+//функция для определения выигрыша
+void win(int a, double* dengi) {
 	switch (a) {
 	case 15:
 		*dengi = *dengi * 0.25;
@@ -116,6 +125,6 @@ void vyvod(int a, double* dengi) {
 	default:
 		*dengi = 0;
 	}
-	//cout << "ваши деньги: " << *dengi << endl;
 }
+//отступ на несколько строк
 void br() { cout << "\n\n\n"; }
