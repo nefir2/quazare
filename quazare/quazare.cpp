@@ -1,7 +1,7 @@
 ﻿#include <iostream>
 #include <random>
 using namespace std;
-void win(int a, double* dengi);
+void win(int a, double *dengi);
 void br();
 int main() {
 	//установка русского языка
@@ -99,14 +99,14 @@ int main() {
 		if (vse == 0) {
 			cout << "заново?\n1.да\n2.нет\n";
 			cin >> x;
-			cout << "\nрекордное количество ваших денег: " << floor(record);
 			br();
 		}
+		if (x != 1) { cout << "\nрекордное количество ваших денег: " << floor(record); br(); }
 	} while (x == 1);
 	return 0;
 }
 //функция для определения выигрыша
-void win(int a, double* dengi) {
+void win(int a, double *dengi) {
 	switch (a) {
 	case 15:
 		*dengi = *dengi * 0.25;
